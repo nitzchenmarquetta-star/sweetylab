@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍬 甜蜜实验室 - Sweet Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🍬 甜蜜实验室</h1>
+            <p class="subtitle">甜蜜制造机，搞怪也甜蜜！</p>
+            <div class="mode-badge backend">
+                <span id="mode-text">后端模式</span>
+            </div>
+        </header>
+
+        <nav class="nav">
+            <button class="nav-btn active" data-tab="poem">📝 藏头诗</button>
+            <button class="nav-btn" data-tab="love">💕 情话生成</button>
+            <button class="nav-btn" data-tab="chat">💬 聊天话术</button>
+            <button class="nav-btn" data-tab="test">💕 契合测试</button>
+            <button class="nav-btn" data-tab="interact">🎮 更多互动</button>
+        </nav>
+
+        <main class="main-content">
+            <section id="poem" class="tab-content active">
+                <h2>📝 藏头诗生成器</h2>
+                <div class="input-group">
+                    <label>输入名字（2-4字）</label>
+                    <input type="text" id="poem-name" placeholder="例如：小红" maxlength="4">
+                </div>
+                <div class="input-group">
+                    <label>选择风格</label>
+                    <select id="poem-style">
+                        <option value="romantic">🌸 浪漫古风</option>
+                        <option value="cute">🐱 可爱卖萌</option>
+                        <option value="funny">😂 搞笑搞怪</option>
+                        <option value="modern">📖 现代文艺</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="generatePoem()">✨ 生成藏头诗</button>
+                <div id="poem-result" class="result-box"></div>
+            </section>
+
+            <section id="love" class="tab-content">
+                <h2>💕 情话生成器</h2>
+                <div class="input-group">
+                    <label>对方名字（可选）</label>
+                    <input type="text" id="love-name" placeholder="例如：小明">
+                </div>
+                <div class="input-group">
+                    <label>选择风格</label>
+                    <select id="love-style">
+                        <option value="romantic">💕 温柔浪漫</option>
+                        <option value="funny">😂 搞笑搞怪</option>
+                        <option value="cute">🐱 可爱卖萌</option>
+                        <option value="direct">💘 直球表白</option>
+                        <option value="literary">📖 文艺小清新</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>选择场景</label>
+                    <select id="love-scene">
+                        <option value="">-- 不指定 --</option>
+                        <option value="first_meet">👋 初次见面</option>
+                        <option value="anniversary">🎉 纪念日</option>
+                        <option value="confession">💘 表白</option>
+                        <option value="goodnight">🌙 晚安</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="generateLove()">💕 生成情话</button>
+                <div id="love-result" class="result-box"></div>
+            </section>
+
+            <section id="chat" class="tab-content">
+                <h2>💬 聊天话术助手</h2>
+                <div class="chat-options">
+                    <button class="option-btn" onclick="generateEarthy()">😂 土味情话</button>
+                    <button class="option-btn" onclick="showReplyForm()">💭 高情商回复</button>
+                    <button class="option-btn" onclick="showStarterForm()">🎯 话题开场白</button>
+                </div>
+
+                <div id="reply-form" class="sub-form hidden">
+                    <div class="input-group">
+                        <label>对方说的话</label>
+                        <input type="text" id="chat-message" placeholder="例如：在干嘛">
+                    </div>
+                    <div class="input-group">
+                        <label>回复风格</label>
+                        <select id="chat-style">
+                            <option value="flirty">💕 撩人</option>
+                            <option value="cute">🐱 可爱</option>
+                            <option value="funny">😂 搞笑</option>
+                            <option value="normal">😊 正常</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" onclick="generateReply()">💬 生成回复</button>
+                </div>
+
+                <div id="starter-form" class="sub-form hidden">
+                    <div class="input-group">
+                        <label>选择场景</label>
+                        <select id="chat-scene">
+                            <option value="first_chat">👋 初次聊天</option>
+                            <option value="ambiguous">💕 暧昧期</option>
+                            <option value="couple">💑 情侣日常</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" onclick="generateStarter()">🎯 生成开场白</button>
+                </div>
+
+                <div id="chat-result" class="result-box"></div>
+            </section>
+
+            <section id="test" class="tab-content">
+                <h2>💕 契合度测试</h2>
+                <p class="disclaimer">⚠️ 纯属娱乐，不要太当真哦~</p>
+                <div class="input-group">
+                    <label>第一个人名字</label>
+                    <input type="text" id="test-name1" placeholder="例如：小红">
+                </div>
+                <div class="input-group">
+                    <label>第二个人名字</label>
+                    <input type="text" id="test-name2" placeholder="例如：小明">
+                </div>
+                <div class="input-group">
+                    <label>关系类型</label>
+                    <select id="test-type">
+                        <option value="romantic">💕 爱情</option>
+                        <option value="friendship">👭 友情</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="generateTest()">💕 开始测试</button>
+                <div id="test-result" class="result-box"></div>
+            </section>
+
+            <section id="interact" class="tab-content">
+                <h2>🎮 更多互动</h2>
+                <div class="interact-grid">
+                    <button class="interact-btn" onclick="generateCoupleName()">💕 情侣名生成</button>
+                    <button class="interact-btn" onclick="showNicknameForm()">😜 外号生成</button>
+                    <button class="interact-btn" onclick="truthOrDare()">🎮 真心话大冒险</button>
+                    <button class="interact-btn" onclick="luckyDraw()">🍀 每日抽签</button>
+                </div>
+
+                <div id="nickname-form" class="sub-form hidden">
+                    <div class="input-group">
+                        <label>输入名字</label>
+                        <input type="text" id="nickname-name" placeholder="例如：小红">
+                    </div>
+                    <button class="btn-primary" onclick="generateNickname()">😜 生成外号</button>
+                </div>
+
+                <div id="interact-result" class="result-box"></div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>🍬 甜蜜实验室 | Made with 💖</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
